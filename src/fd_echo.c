@@ -38,7 +38,7 @@ int	fd_echo(t_cmd_node *input)
 
 	while (temp)
 	{
-		if (temp->token == ">>")
+		if (temp->type == REDIRECT_APPEND)
 			save_in_file(temp);
 		temp = temp->next;
 	}

@@ -97,8 +97,8 @@ static void	ft_stackadd_backnode(t_cmd_node **lst, t_cmd_node *new)
 void	handle_input(t_cmd_shell *cmd)
 {
 	t_cmd_node	*new_node;
-	int	i;
-	
+	int			i;
+
 	i = 0;
 	while (cmd->argv[i])
 	{

@@ -16,23 +16,22 @@ void	save_in_file(t_cmd_node *input)
 {
 	int	file;
 
-	write(1, input->token, 1);
 	file = open(input->next->token, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (file == -1)
 	{
 		perror("can not create file");
-		return (1);
+		return ;
 	}
-	/*while (args[j])
+	while (input->prev->type == ARGUMENT)
 	{
-		if (!(ft_strstr(args[j], ">>")) && j != i)
-		{
-			check_parag(&args[j]);
-			write(file, args[j], ft_strlen(args[j]));
-			write(file, " ", 1);
-		}
-		j++;
-	}*/
+		input = input->prev;
+	}
+	while (input->type != REDIRECT_APPEND)
+	{
+		write(file, input->token, ft_strlen(input->token));
+        write(file, " ", 1);
+		input = input->next;
+	}
 	close(file);
-	return (0);
+	return ;
 }
