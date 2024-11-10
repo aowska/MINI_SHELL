@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: awacowsk <awacowsk@student.42.fr>          #+#  +:+       +#+        */
+/*   By: alicjawacowska <alicjawacowska@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-09 15:13:13 by awacowsk          #+#    #+#             */
-/*   Updated: 2024-11-09 15:13:13 by awacowsk         ###   ########.fr       */
+/*   Created: 2024/11/09 15:13:13 by awacowsk          #+#    #+#             */
+/*   Updated: 2024/11/09 21:15:23 by alicjawacow      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ int	fd_echo(t_cmd_node *input)
 	while (temp)
 	{
 		if (temp->type == REDIRECT_APPEND)
-			save_in_file(temp);
+			resirect_append(temp);
+		if (temp->type == REDIRECT_OUTPUT)
+			resirect_output(temp);
 		temp = temp->next;
 	}
 	while (input)

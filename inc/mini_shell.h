@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelsetih <aelsetih@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: alicjawacowska <alicjawacowska@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 15:32:20 by aelsetih          #+#    #+#             */
-/*   Updated: 2024/10/20 15:32:21 by aelsetih         ###   ########.fr       */
+/*   Updated: 2024/11/09 21:08:32 by alicjawacow      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <signal.h>
 # include <fcntl.h>
+# include <sys/stat.h>
 # include <dirent.h>
 # include "mini_shell_struct.h"
 # include "../ft_printf/ft_printf.h"
@@ -30,7 +31,8 @@ void	ft_pwd(void);
 void    fd_ls(void);
 int     fd_echo(t_cmd_node *input);
 void	free_cmd_node(t_cmd_node *node);
-void    save_in_file(t_cmd_node *input);
+void    resirect_append(t_cmd_node *input);
+void	resirect_output(t_cmd_node *input);
 
 
 #endif
