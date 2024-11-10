@@ -11,15 +11,21 @@ void	resirect_output(t_cmd_node *input)
 		return (perror("can not create file"), (void)0);
 	//if (stat(input->next->token, &st) == 0 && st.st_size > 0)
     //    write(file, " ", 1);
-	while (input->prev->type == ARGUMENT)
+	while (input && input->prev->type == ARGUMENT)
 		input = input->prev;
-	while (input->type != REDIRECT_APPEND)
+	while (input && input->type != REDIRECT_OUTPUT)
 	{
 		write(file, input->token, ft_strlen(input->token));
-        write(file, " ", 1);
+		write(file, " ", 1);
 		input = input->next;
 	}
-	write(file, "\n", 1);
-	close(file);
-	return ;
+	if (input && input->type == REDIRECT_OUTPUT)
+		input = input->next->next;
+	while (input)
+	{
+		write(file, input->token, ft_strlen(input->token));
+		write(file, " ", 1);
+		input = input->next;
+	}
+	return (write(file, "\n", 1), close(file), (void)0);
 }

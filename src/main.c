@@ -2,24 +2,24 @@
 
 static int g_in_multiline_mode = 0;
 
-void	signal_handler(int signum)
+void signal_handler(int signum)
 {
 	(void)signum;
 	if (g_in_multiline_mode)
 	{
 		ft_printf("\n");
 		rl_on_new_line();
-		//rl_replace_line("", 0);
-		rl_redisplay();	
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
 	else
-		ft_printf("\nMini_shell>> ");		
+		ft_printf("\nMini_shell>> ");
 }
 
-static int	check_quots(const char *str)
+static int check_quots(const char *str)
 {
-	int	quots;
-	int	i;
+	int quots;
+	int i;
 
 	quots = 0;
 	i = 0;
@@ -34,11 +34,11 @@ static int	check_quots(const char *str)
 	return (1);
 }
 
-static char	*get_correct_input(const char *str)
+static char *get_correct_input(const char *str)
 {
-	char	*temp;
-	char	*new_read;
-	char	*new_temp;
+	char *temp;
+	char *new_read;
+	char *new_temp;
 
 	temp = ft_strdup(str);
 	g_in_multiline_mode = 1;
@@ -53,19 +53,17 @@ static char	*get_correct_input(const char *str)
 		}
 		new_temp = ft_strjoin(temp, "\n");
 		temp = ft_strjoin(new_temp, new_read);
-		free (new_temp);
-		free (new_read);
+		free(new_temp);
+		free(new_read);
 	}
 	g_in_multiline_mode = 0;
 	return (temp);
 }
 
-
-int	main()
+int main()
 {
-	char			*input;
-	t_cmd_shell		*cmd;
-
+	char *input;
+	t_cmd_shell *cmd;
 
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
@@ -76,20 +74,23 @@ int	main()
 		if (input == NULL)
 		{
 			ft_printf("exit\n");
-			free (input);
-			break ;
+			free(input);
+			break;
 		}
 		if (check_quots(input))
 		{
 			input = get_correct_input(input);
 			if (!input)
-				break ;
+				break;
 		}
-		cmd->argv = fft_split(input);
-		handle_input(cmd);
-		add_history(input);
-		free (input);	
+		if (input[0] != '\0')
+		{
+			cmd->argv = fft_split(input);
+			handle_input(cmd);
+			add_history(input);
+			free(input);
+		}
 	}
-	//rl_clear_history();
+	rl_clear_history();
 	return (0);
 }

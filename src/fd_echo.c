@@ -11,11 +11,11 @@
 /* ************************************************************************** */
 
 #include "../inc/mini_shell.h"
-
-void	check_parag(char **args)
+/*
+void check_parag(char **args)
 {
-	char	*start_quote;
-	char	*end_quote;
+	char *start_quote;
+	char *end_quote;
 
 	if (*args && **args == '"')
 	{
@@ -26,31 +26,30 @@ void	check_parag(char **args)
 		if (end_quote)
 			*end_quote = '\0';
 	}
-}
+}*/
 
-int	fd_echo(t_cmd_node *input)
+int fd_echo(t_cmd_node *input)
 {
-	t_cmd_node	*temp;
+	t_cmd_node *temp;
 
 	temp = input;
 	if (!input)
 		return (1);
-
 	while (temp)
 	{
 		if (temp->type == REDIRECT_APPEND)
 			resirect_append(temp);
-		if (temp->type == REDIRECT_OUTPUT)
+		else if (temp->type == REDIRECT_OUTPUT)
 			resirect_output(temp);
 		temp = temp->next;
 	}
+	
 	while (input)
 	{
-		check_parag(&input->token);
+		//check_parag(&input->token);
 		printf("%s ", input->token);
 		input = input->next;
 	}
-
 	printf("\n");
 	return (0);
 }
