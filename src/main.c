@@ -9,7 +9,7 @@ void signal_handler(int signum)
 	{
 		ft_printf("\n");
 		rl_on_new_line();
-		rl_replace_line("", 0);
+		//rl_replace_line("", 0);
 		rl_redisplay();
 	}
 	else
@@ -91,6 +91,6 @@ int main()
 			free(input);
 		}
 	}
-	rl_clear_history();
+	//rl_clear_history();
 	return (0);
 }

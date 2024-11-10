@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelsetih <aelsetih@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: alicjawacowska <alicjawacowska@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 20:04:57 by aelsetih          #+#    #+#             */
-/*   Updated: 2024/11/05 20:04:58 by aelsetih         ###   ########.fr       */
+/*   Updated: 2024/11/10 21:24:32 by alicjawacow      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static t_node_type	get_node_type(const char *token, int i)
 		return PIPE;
 	if (ft_strncmp(token, "ls", ft_strlen(token)) == 0)
 		return LS;
+	if (ft_strncmp(token, "cat", ft_strlen(token)) == 0)
+		return (CAT);
 	if (ft_strncmp(token, "<", ft_strlen(token)) == 0)
 		return (REDIRECT_INPUT);
 	if (ft_strncmp(token, ">", ft_strlen(token)) == 0)
@@ -48,6 +50,7 @@ const char *node_type_to_string(t_node_type type)
         case ECHO:             return "ECHO";
         case PIPE:             return "PIPE";
 		case LS:				return "LS";
+		case CAT:				return "CAT";
         case REDIRECT_INPUT:   return "REDIRECT_INPUT";
         case REDIRECT_OUTPUT:  return "REDIRECT_OUTPUT";
         case REDIRECT_APPEND:  return "REDIRECT_APPEND";

@@ -6,7 +6,7 @@
 /*   By: alicjawacowska <alicjawacowska@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 19:20:35 by aelsetih          #+#    #+#             */
-/*   Updated: 2024/11/09 21:15:00 by alicjawacow      ###   ########.fr       */
+/*   Updated: 2024/11/10 21:23:38 by alicjawacow      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef enum s_node_type
 	ECHO,
 	PIPE,
 	LS,
+	CAT,
 	REDIRECT_INPUT,
 	REDIRECT_OUTPUT,
 	REDIRECT_APPEND,

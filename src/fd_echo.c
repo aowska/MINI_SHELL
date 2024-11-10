@@ -6,12 +6,12 @@
 /*   By: alicjawacowska <alicjawacowska@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 15:13:13 by awacowsk          #+#    #+#             */
-/*   Updated: 2024/11/09 21:15:23 by alicjawacow      ###   ########.fr       */
+/*   Updated: 2024/11/10 21:03:49 by alicjawacow      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/mini_shell.h"
-/*
+
 void check_parag(char **args)
 {
 	char *start_quote;
@@ -26,7 +26,7 @@ void check_parag(char **args)
 		if (end_quote)
 			*end_quote = '\0';
 	}
-}*/
+}
 
 int fd_echo(t_cmd_node *input)
 {
@@ -38,18 +38,23 @@ int fd_echo(t_cmd_node *input)
 	while (temp)
 	{
 		if (temp->type == REDIRECT_APPEND)
-			resirect_append(temp);
+			return (resirect_append(temp), 0);
 		else if (temp->type == REDIRECT_OUTPUT)
-			resirect_output(temp);
+			return (resirect_output(temp), 0);
+		else if(temp->type == REDIRECT_INPUT)
+			return (printf("\n"), 0);
 		temp = temp->next;
 	}
-	
+	input = input->next;
 	while (input)
 	{
-		//check_parag(&input->token);
+		check_parag(&input->token);
 		printf("%s ", input->token);
 		input = input->next;
 	}
 	printf("\n");
 	return (0);
 }
+
+/*		else if(temp->type == REDIRECT_INPUT)
+			return (resirect_input(temp), 0);*/

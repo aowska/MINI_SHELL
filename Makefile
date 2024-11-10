@@ -1,6 +1,6 @@
 NAME = mini_shell
 
-src = src/main.c src/fd_echo.c src/resirect_append.c src/init_var.c src/fft_split.c src/handle_input.c src/ft_pwd.c src/parsing.c src/free.c src/fd_ls.c src/resirect_output.c
+src = src/main.c src/fd_echo.c src/resirect_append.c src/init_var.c src/fft_split.c src/handle_input.c src/ft_pwd.c src/parsing.c src/free.c src/fd_ls.c src/resirect_output.c src/resirect_input.c src/get_next_line_utils.c src/get_next_line.c src/fd_cat.c
 
 SRCS = $(src)
 OBJS = $(SRCS:.c=.o)
