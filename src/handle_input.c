@@ -38,6 +38,8 @@ static t_node_type	get_node_type(const char *token, int i)
 		return (HEREDOC);
 	if (ft_strrchr(token, '$') && !ft_strrchr(token, '\''))
 		return (VARIABLE);
+	if (ft_strncmp(token, "env", ft_strlen(token)) == 0)
+		return (ENV);
 	return ARGUMENT;
 }
 
@@ -56,6 +58,7 @@ const char *node_type_to_string(t_node_type type)
         case REDIRECT_APPEND:  return "REDIRECT_APPEND";
         case HEREDOC:         return "HEREDOC";
         case VARIABLE:         return "VARIABLE";
+		case ENV:				return "ENV";
         case ARGUMENT:         return "ARGUMENT";
         case EXIT:             return "EXIT";
         default:               return "UNKNOWN";

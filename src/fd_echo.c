@@ -43,6 +43,8 @@ int fd_echo(t_cmd_node *input)
 			return (resirect_output(temp), 0);
 		else if(temp->type == REDIRECT_INPUT)
 			return (printf("\n"), 0);
+		else if (temp->type == VARIABLE)
+			return(fd_variable(temp));
 		temp = temp->next;
 	}
 	input = input->next;

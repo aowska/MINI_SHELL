@@ -14,6 +14,7 @@
 
 void	parsing(t_cmd_shell *cmd)
 {
+	int i;
 	if (cmd->node->type == PWD)
 		ft_pwd();
 	else if(cmd->node->type == LS)
@@ -22,6 +23,12 @@ void	parsing(t_cmd_shell *cmd)
 		fd_echo(cmd->node);
 	else if (cmd->node->type == CAT)
 		fd_cat(cmd->node);
+	else if (cmd->node->type == ENV)
+	{
+		 i = 0;
+        while (cmd->env[i])
+            printf("%s\n", cmd->env[i++]);
+	}
 	if (cmd->node != NULL)
 	{
 		free_cmd_node(cmd->node);
