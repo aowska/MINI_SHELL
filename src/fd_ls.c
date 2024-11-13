@@ -1,11 +1,11 @@
 #include "../inc/mini_shell.h"
 
-void fd_ls(void)
+void	fd_ls(void)
 {
-	DIR *dirp;
-	struct dirent *direntp;
-	char cwd[1024];
-	int i;
+	DIR				*dirp;
+	struct dirent	*direntp;
+	char			cwd[1024];
+	int				i;
 
 	i = 0;
 	getcwd(cwd, sizeof(cwd));

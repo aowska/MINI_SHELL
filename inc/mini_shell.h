@@ -40,11 +40,12 @@ void	parsing(t_cmd_shell *cmd);
 void	ft_pwd(void);
 void    fd_ls(void);
 void	fd_cat(t_cmd_node *input);
-int     fd_echo(t_cmd_node *input);
+int     fd_echo(t_cmd_node *input, char **env);
 void	free_cmd_node(t_cmd_node *node);
 void    resirect_append(t_cmd_node *input);
 void	resirect_output(t_cmd_node *input);
 void	resirect_input(t_cmd_node *input);
-
+void	fd_variable(t_cmd_node *input, char **env, int no_newline);
+void	heredoc(t_cmd_node *input);
 
 #endif

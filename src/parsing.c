@@ -20,7 +20,7 @@ void	parsing(t_cmd_shell *cmd)
 	else if(cmd->node->type == LS)
 		fd_ls();
 	else if(cmd->node->type == ECHO)
-		fd_echo(cmd->node);
+		fd_echo(cmd->node,cmd->env);
 	else if (cmd->node->type == CAT)
 		fd_cat(cmd->node);
 	else if (cmd->node->type == ENV)

@@ -15,14 +15,14 @@
 void	resirect_input(t_cmd_node *input)
 {
 	int		file;
-    int     i;
-    char	*temp;
+	int		i;
+	char	*temp;
 
-    i = 0;
-	if(!(input->next))
+	i = 0;
+	if (!(input->next))
 		return(printf("bash: syntax error near unexpected token `newline'\n"), (void)0);
-    file = open(input->next->token, O_RDONLY);
-    if (file == -1) 
+	file = open(input->next->token, O_RDONLY);
+	if (file == -1) 
 		return (perror("can not create file"), (void)0);
 	while (i++ < 2000)
 	{

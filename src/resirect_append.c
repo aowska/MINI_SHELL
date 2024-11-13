@@ -16,7 +16,7 @@ void	resirect_append(t_cmd_node *input)
 {
 	int		file;
 
-	if(!(input->next))
+	if (!(input->next))
 		return(printf("bash: syntax error near unexpected token `newline'\n"), (void)0);
 	file = open(input->next->token, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (file == -1 )

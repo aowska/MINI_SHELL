@@ -12,51 +12,67 @@
 
 #include "../inc/mini_shell.h"
 
-void check_parag(char **args)
-{
-	char *start_quote;
-	char *end_quote;
+#include <stdio.h>
+#include <string.h>
 
-	if (*args && **args == '"')
+void	check_parag(char **args)
+{
+	char		*start_quote;
+	char		*end_quote;
+	size_t		len;
+	char		quote_char;
+
+	if (*args && (**args == '"' || **args == '\''))
 	{
-		start_quote = ft_strchr(*args, '"');
+		quote_char = **args;
+
+		start_quote = strchr(*args, quote_char);
 		if (start_quote)
-			ft_memmove(start_quote, start_quote + 1, ft_strlen(start_quote));
-		end_quote = ft_strrchr(*args, '"');
+			memmove(start_quote, start_quote + 1, strlen(start_quote));
+
+		end_quote = strrchr(*args, quote_char);
 		if (end_quote)
 			*end_quote = '\0';
 	}
+	len = strlen(*args);
+	if (len > 0 && (*args)[len - 1] == ';')
+		(*args)[len - 1] = '\0';
 }
 
-int fd_echo(t_cmd_node *input)
+int	fd_echo(t_cmd_node *input, char **env)
 {
-	t_cmd_node *temp;
+	t_cmd_node	*temp;
+	int			no_newline;
 
 	temp = input;
+	no_newline = 0;
 	if (!input)
 		return (1);
+	input = input->next;
+	if (input && strcmp(input->token, "-n") == 0)
+	{
+		no_newline = 1;
+		input = input->next;
+	}
 	while (temp)
 	{
 		if (temp->type == REDIRECT_APPEND)
 			return (resirect_append(temp), 0);
 		else if (temp->type == REDIRECT_OUTPUT)
 			return (resirect_output(temp), 0);
-		else if(temp->type == REDIRECT_INPUT)
+		else if (temp->type == REDIRECT_INPUT)
 			return (printf("\n"), 0);
 		else if (temp->type == VARIABLE)
-			return(fd_variable(temp));
+			return (fd_variable(temp, env, no_newline), 0);
 		temp = temp->next;
 	}
-	input = input->next;
 	while (input)
 	{
 		check_parag(&input->token);
-		printf("%s ", input->token);
+		printf("%s", input->token);
 		input = input->next;
 	}
-	printf("\n");
+	if (!no_newline)
+		printf("\n");
 	return (0);
 }
-
-/*		else if(temp->type == REDIRECT_INPUT)
-			return (resirect_input(temp), 0);*/
