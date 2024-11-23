@@ -14,15 +14,17 @@
 
 void	fd_cat(t_cmd_node *input)
 {
-	t_cmd_node *temp;
+	t_cmd_node	*temp;
 
 	temp = input;
 	if (!input)
 		return ;
 	while (temp)
 	{
-		if(temp->type == REDIRECT_INPUT)
+		if (temp->type == REDIRECT_INPUT)
 			return (resirect_input(temp), (void)0);
+		else if (temp->type == HEREDOC)
+			return (printf("%s", heredoc(temp)), (void)0);
 		temp = temp->next;
 	}
     return ;

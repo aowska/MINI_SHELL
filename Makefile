@@ -5,6 +5,7 @@ src = src/main.c src/fd_echo.c src/resirect_append.c src/init_var.c src/fft_spli
 		src/get_next_line.c src/fd_cat.c src/fd_variable.c src/heredoc.c
 
 SRCS = $(src)
+OBJ_DIR = obj
 OBJS = $(SRCS:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror
@@ -15,12 +16,14 @@ all: $(NAME)
 
 $(PRINTF):
 	make -C ft_printf/
-	
+
 $(NAME): $(OBJS) $(PRINTF)
 	cc $(CFLAGS) $(OBJS) $(PRINTF) -lreadline -o $(NAME)
-	
-%.o: %.c
+
+$(OBJ_DIR)/%.o: src/%.c
+	@mkdir -p $(OBJ_DIR)
 	cc $(CFLAGS) -c $< -o $@
+
 clean:
 	make -C ft_printf/ clean
 	rm -f $(OBJS)

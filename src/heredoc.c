@@ -1,30 +1,57 @@
 
 #include "../inc/mini_shell.h"
 
-void	heredoc(t_cmd_node *input)
-{
-	/*int		file;
+char *ft_strjoin_with_newline(char *s1, char *s2) {
+    if (!s2) return s1 ? strdup(s1) : NULL; // If s2 is NULL, just duplicate s1
+    if (!s1) {
+        // Allocate space for s2 and a newline
+        char *new_str = malloc(strlen(s2) + 2); // +1 for newline, +1 for null terminator
+        if (!new_str) return NULL;
+        strcpy(new_str, s2);
+        strcat(new_str, "\n");
+        return new_str;
+    }
 
-	if (!(input->next))
-		return(printf("bash: syntax error near unexpected token `newline'\n"), (void)0);
-	file = open(input->next->token, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (file == -1 )
-		return (perror("can not create file"), (void)0);
-	while (input && input->prev->type == ARGUMENT)
-		input = input->prev;
-	while (input && input->type != REDIRECT_APPEND)
+    size_t len1 = strlen(s1);
+    size_t len2 = strlen(s2);
+    char *new_str = malloc(len1 + len2 + 2); // +1 for newline, +1 for null terminator
+    if (!new_str) return NULL;
+
+    strcpy(new_str, s1);
+    strcat(new_str, s2);
+    strcat(new_str, "\n"); // Add newline at the end
+
+    return new_str;
+}
+
+
+char *heredoc(t_cmd_node *input)
+{
+	char *delimiter = NULL;
+	char *str_delimiter = NULL;
+	char *new_str = NULL;
+
+	check_parag(&(input->next->token));
+	while (1)
 	{
-		write(file, input->token, ft_strlen(input->token));
-		write(file, " ", 1);
-		input = input->next;
+		delimiter = readline("> ");
+		if (delimiter == NULL)
+		{
+			printf("exit\n");
+			free(input);
+			break;
+		}
+		if (strcmp(input->next->token, delimiter) == 0)
+		{
+			free(delimiter);
+			break;
+		}
+		new_str = ft_strjoin_with_newline(str_delimiter, delimiter);
+		//printf("%s", new_str);
+		free(str_delimiter);
+		str_delimiter = new_str;
+		free(delimiter);
 	}
-	if (input && input->type == REDIRECT_APPEND)
-		input = input->next->next;
-	while (input)
-	{
-		write(file, input->token, ft_strlen(input->token));
-		write(file, " ", 1);
-		input = input->next;
-	}
-	return (write(file, "\n", 1), close(file), (void)0);*/
+	//printf("%s", new_str);
+	return (new_str);
 }

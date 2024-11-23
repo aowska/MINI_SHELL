@@ -15,12 +15,12 @@
 #include <stdio.h>
 #include <string.h>
 
-void	check_parag(char **args)
+void check_parag(char **args)
 {
-	char		*start_quote;
-	char		*end_quote;
-	size_t		len;
-	char		quote_char;
+	char *start_quote;
+	char *end_quote;
+	size_t len;
+	char quote_char;
 
 	if (*args && (**args == '"' || **args == '\''))
 	{
@@ -39,10 +39,10 @@ void	check_parag(char **args)
 		(*args)[len - 1] = '\0';
 }
 
-int	fd_echo(t_cmd_node *input, char **env)
+int fd_echo(t_cmd_node *input, char **env)
 {
-	t_cmd_node	*temp;
-	int			no_newline;
+	t_cmd_node *temp;
+	int no_newline;
 
 	temp = input;
 	no_newline = 0;
@@ -62,6 +62,13 @@ int	fd_echo(t_cmd_node *input, char **env)
 			return (resirect_output(temp), 0);
 		else if (temp->type == REDIRECT_INPUT)
 			return (printf("\n"), 0);
+		else if (temp->type == HEREDOC)
+		{
+			if(heredoc(temp) != NULL)
+				return (printf("\n"), 0);
+			else
+				return (0);
+		}
 		else if (temp->type == VARIABLE)
 			return (fd_variable(temp, env, no_newline), 0);
 		temp = temp->next;
